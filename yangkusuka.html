@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yang disuka Wildan abiata pratama</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #9c27b0;
+            --primary-light: #e1bee7;
+            --secondary: #ff9800;
+            --dark: #333;
+            --light: #f9f9f9;
+            --success: #4caf50;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary), #7b1fa2);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            transform: rotate(15deg);
+            opacity: 0.3;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 i {
+            color: var(--secondary);
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .interest-card {
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        }
+
+        .interest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+        }
+
+        .interest-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .secret-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            border: 2px dashed var(--primary);
+            position: relative;
+        }
+
+        .secret-section::after {
+            content: "🔒";
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+        }
+
+        .secret-btn {
+            background: linear-gradient(to right, var(--primary), #6a1b9a);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(154, 0, 255, 0.3);
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .secret-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(154, 0, 255, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: modalAppear 0.5s ease;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #7b1fa2;
+        }
+
+        .secret-content {
+            display: none;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .secret-message {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--primary-light);
+            border-radius: 15px;
+        }
+
+        .camera-container {
+            margin: 30px auto;
+            max-width: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        #camera-feed {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #000;
+        }
+
+        .food-image {
+            max-width: 100%;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .hint {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #666;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            section {
+                padding: 25px;
+                margin: 25px 15px;
+            }
+            
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .secret-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="profile-img">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h1>Wildan abiata pratama</h1>
+            <p class="tagline">Halo! Saya seorang yang bersemangat tentang kehidupan, seni, teknologi, dan hal-hal indah di dunia ini. Mari menjelajahi bersama saya!</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about">
+            <h2><i class="fas fa-user"></i> Tentang Saya</h2>
+            <p>Saya adalah seseorang yang penuh rasa ingin tahu dan antusias terhadap banyak hal dalam kehidupan. Saya percaya bahwa setiap hari adalah kesempatan untuk belajar sesuatu yang baru dan berkembang menjadi versi diri yang lebih baik.</p>
+            <p>Saya sangat menikmati proses kreatif, baik itu dalam memecahkan masalah, menciptakan sesuatu yang baru, atau sekadar menemukan keindahan dalam hal-hal sederhana. Saya juga suka berbagi cerita dan pengalaman dengan orang-orang di sekitar saya.</p>
+        </section>
+
+        <section id="interests">
+            <h2><i class="fas fa-heart"></i> Hal-Hal yang Saya Sukai</h2>
+            <p>Berikut adalah beberapa hal yang membuat hidup saya lebih berwarna dan bermakna:</p>
+            
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Membaca</h3>
+                    <p>Dari fiksi hingga nonfiksi, setiap buku membuka jendela dunia baru.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <i class="fas fa-music"></i>
+                    <h3>Musik</h3>
+                    <p>Alunan melodi yang menghidupkan suasana hati dan menginspirasi.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Seni Visual</h3>
+                    <p>Menikmati keindahan karya seni dan terkadang mencoba membuatnya.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Kuliner</h3>
+                    <p>Menjelajahi cita rasa baru dan menikmati proses memasak.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <i class="fas fa-hiking"></i>
+                    <h3>Alam Terbuka</h3>
+                    <p>Menikmati keindahan alam dan petualangan di luar ruangan.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Teknologi</h3>
+                    <p>Mengikuti perkembangan teknologi dan dampaknya pada kehidupan.</p>
+                </div>
+            </div>
+            
+            <div class="secret-section">
+                <h3><i class="fas fa-secret"></i> Ada Sesuatu yang Tersembunyi</h3>
+                <p>Di balik semua hal yang saya sukai, ada satu hal spesial yang sangat sangat saya sukai...</p>
+                <button class="secret-btn" id="revealSecretBtn">
+                    <i class="fas fa-key"></i> Klik disini untuk mengetahuinya
+                </button>
+                <p class="hint">Hint: Harus isi sedikit data supaya tau</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal untuk memasukkan nama -->
+    <div class="modal" id="nameModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-lock"></i> Pasti kaget nanti</h2>
+            <p>Untuk mengetahui apa yang sangat aku suka masukkan data berikut:</p>
+            
+            <form id="accessForm">
+                <div class="form-group">
+                    <label for="fullName">Nama Lengkap</label>
+                    <input type="text" id="fullName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nickname">Nama Panggilan</label>
+                    <input type="text" id="nickname" placeholder="Masukkan nama panggilan" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-unlock"></i> Buka Isinya
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Konten Rahasia (akan ditampilkan setelah akses berhasil) -->
+    <div class="container">
+        <section class="secret-content" id="secretContent">
+            <div id="authenticatedContent">
+                <h2><i class="fas fa-star"></i> Pesan Rahasia Terungkap!</h2>
+                <div class="secret-message">
+                    "and I very very like... You,ya kamu gak percaya?"
+                </div>
+                <p>Kamu adalah orang yang sangat saya suka. Bukan karena hal besar, tapi karena cara kamu jadi diri sendiri.Ada rasa nyaman yang nggak bisa dijelasin, cuma bisa dirasain.</p>
+                
+                <div class="camera-container">
+                    <video id="camera-feed" autoplay></video>
+                </div>
+                <p>WOWW BEAUTIFUL</p>
+                <button id="stopCameraBtn" class="submit-btn" style="max-width: 300px; margin-top: 20px;">
+                    <i class="fas fa-video-slash"></i> Matikan Kamera
+                </button>
+            </div>
+            
+            <div id="publicContent">
+                <h2><i class="fas fa-utensils"></i> TADAAAAA</h2>
+                <p>Ini adalah yang saya sangat sukaaa!:</p>
+                <img src="<a href=https://ibb.co.com/JRqmSLTR"><img src="https://i.ibb.co.com/JRqmSLTR/26394128.jpg" alt="26394128" border="0"></a>
+                <p>Ini adalah mie ayam spesial dengan pangsit goreng, bakso, dan sayuran segar.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="container">
+        <p>Website Perkenalan Diri &copy; 2023 - Dibuat dengan <i class="fas fa-heart" style="color:#e91e63;"></i></p>
+    </footer>
+
+    <script>
+        // Elemen DOM
+        const revealSecretBtn = document.getElementById('revealSecretBtn');
+        const nameModal = document.getElementById('nameModal');
+        const accessForm = document.getElementById('accessForm');
+        const secretContent = document.getElementById('secretContent');
+        const authenticatedContent = document.getElementById('authenticatedContent');
+        const publicContent = document.getElementById('publicContent');
+        const stopCameraBtn = document.getElementById('stopCameraBtn');
+        const cameraFeed = document.getElementById('camera-feed');
+        
+        // Variabel untuk kamera
+        let cameraStream = null;
+        
+        // Tampilkan modal saat tombol rahasia diklik
+        revealSecretBtn.addEventListener('click', () => {
+            nameModal.style.display = 'flex';
+        });
+        
+        // Sembunyikan modal saat klik di luar konten modal
+        nameModal.addEventListener('click', (e) => {
+            if (e.target === nameModal) {
+                nameModal.style.display = 'none';
+            }
+        });
+        
+        // Proses form akses
+        accessForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            const nickname = document.getElementById('nickname').value.trim();
+            
+            // Sembunyikan modal
+            nameModal.style.display = 'none';
+            
+            // Tampilkan konten rahasia
+            secretContent.style.display = 'block';
+            
+            // Periksa apakah kredensial benar
+            if (fullName.toLowerCase() === 'nazzwa aprilla husna' && nickname.toLowerCase() === 'wawa') {
+                // Tampilkan konten otentikasi
+                authenticatedContent.style.display = 'block';
+                publicContent.style.display = 'none';
+                
+                // Aktifkan kamera
+                activateCamera();
+            } else {
+                // Tampilkan konten publik
+                authenticatedContent.style.display = 'none';
+                publicContent.style.display = 'block';
+            }
+            
+            // Scroll ke konten rahasia
+            secretContent.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Fungsi untuk mengaktifkan kamera
+        async function activateCamera() {
+            try {
+                // Minta izin akses kamera
+                cameraStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'user' },
+                    audio: false 
+                });
+                
+                // Tampilkan stream kamera di elemen video
+                cameraFeed.srcObject = cameraStream;
+                
+                // Tampilkan pesan sukses
+                console.log('Kamera berhasil diaktifkan!');
+            } catch (error) {
+                console.error('Error mengakses kamera:', error);
+                
+                // Tampilkan pesan error yang ramah pengguna
+                const cameraContainer = document.querySelector('.camera-container');
+                cameraContainer.innerHTML = `
+                    <div style="background:#ffebee; color:#c62828; padding:20px; border-radius:15px; text-align:center;">
+                        <i class="fas fa-video-slash" style="font-size:3rem; margin-bottom:15px;"></i>
+                        <h3>Kamera Tidak Dapat Diakses</h3>
+                        <p>Izinkan akses kamera di pengaturan browser untuk melihat fitur ini.</p>
+                        <p>Atau mungkin perangkat Anda tidak memiliki kamera.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Fungsi untuk mematikan kamera
+        function deactivateCamera() {
+            if (cameraStream) {
+                // Hentikan semua track kamera
+                cameraStream.getTracks().forEach(track => {
+                    track.stop();
+                });
+                
+                // Hapus stream dari elemen video
+                cameraFeed.srcObject = null;
+                cameraStream = null;
+                
+                console.log('Kamera dimatikan');
+            }
+        }
+        
+        // Event listener untuk tombol matikan kamera
+        if (stopCameraBtn) {
+            stopCameraBtn.addEventListener('click', () => {
+                deactivateCamera();
+                stopCameraBtn.innerHTML = '<i class="fas fa-check"></i> Kamera Dimatikan';
+                stopCameraBtn.style.backgroundColor = '#4caf50';
+                
+                // Kembalikan ke keadaan semula setelah 2 detik
+                setTimeout(() => {
+                    stopCameraBtn.innerHTML = '<i class="fas fa-video-slash"></i> Matikan Kamera';
+                    stopCameraBtn.style.backgroundColor = '';
+                }, 2000);
+            });
+        }
+        
+        // Animasi sederhana untuk kartu minat saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            const interestCards = document.querySelectorAll('.interest-card');
+            
+            interestCards.forEach((card, index) => {
+                // Delay untuk efek animasi bertahap
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+            
+            // Efek hover untuk header
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                header.style.transform = `translateY(${rate}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
